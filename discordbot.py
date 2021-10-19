@@ -15,7 +15,7 @@ async def on_ready():
     print('ログインしました')
 
 async def storiuse(message):
-    escape_char = ['.', ',', '!', '?', '|', '。', '、', '…', '・', '？', '！']
+    escape_char = ['.', ',', '!', '?', '|', '。', '、', '…', '・', '？', '！', '「', '」', '『', '』']
     res = "ストリウス「"
     for c in list(message.content)[6:]:
         res += c
