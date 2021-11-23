@@ -1,6 +1,7 @@
 # インストールした discord.py を読み込む
 import discord
 from discord import channel
+import random
 
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
@@ -33,10 +34,25 @@ async def aruto(message):
 async def ntr(message):
     await message.channel.send(file=discord.File('NTR.gif'))
 
+async def shion(message):
+    user_name = message.author.display_name
+    await message.channel.send(file=discord.File('Shion.jpg'))
+    await message.channel.send(f'{user_name}！今、幸せ？')
+
+async def makoto(message):
+    file_name = f'makoto{random.randint(1, 3)}.gif'
+    await message.channel.send(file=discord.File(file_name))
+
 async def help(message):
-    res = "**List of commands:**\n `:dktn_***`：ストリウスが濁点を付けて返してくれます。\n `:drm_***`：飛電或人が激推ししてくれます。\n `:ntr-gif`：「NTRは人類の夢だ！」のシーンのGIFを送信します。\n"
+    res = "**List of commands:**\n"
+    res += "`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
+    res += "`:drm_***`：飛電或人が激推ししてくれます。\n"
+    res += "`:ntr-gif`：「NTRは人類の夢だ！」のシーンのGIFを送信します。\n"
+    res += "`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
+    res += "`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
 
     await message.channel.send(res)
+
 
 # メッセージ受信時に動作する処理
 @client.event
@@ -55,6 +71,14 @@ async def on_message(message):
     # NTRは人類の夢だ！のGIFを送信する処理
     if message.content == ':ntr-gif':
         await ntr(message)
+
+    # シオンが幸せかどうか聞いてくれる処理
+    if message.content == ':shion':
+        await shion(message)
+
+    # マコト兄ちゃんが乱入してくる処理
+    if message.content == ':makoto':
+        await makoto(message)
 
     if message.content == ':help':
         await help(message)
