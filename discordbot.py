@@ -40,7 +40,7 @@ async def shion(message):
     await message.channel.send(f'{user_name}！今、幸せ？')
 
 async def makoto(message):
-    file_name = f'makoto{random.randint(1, 3)}.gif'
+    file_name = f'makoto{random.randint(1, 4)}.gif'
     await message.channel.send(file=discord.File(file_name))
 
 async def help(message):
