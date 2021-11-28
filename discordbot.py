@@ -32,7 +32,9 @@ async def aruto(message):
     await message.channel.send(res)
 
 async def ntr(message):
-    await message.channel.send(file=discord.File('NTR.gif'))
+    x = random.randint(1, 2)
+    if x == 1: await message.channel.send(file=discord.File('NTR_pos.gif'))
+    else: await message.channel.send(file=discord.File('NTR_neg.gif'))
 
 async def shion(message):
     user_name = message.author.display_name
@@ -47,7 +49,7 @@ async def help(message):
     res = "**List of commands:**\n"
     res += "`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
     res += "`:drm_***`：飛電或人が激推ししてくれます。\n"
-    res += "`:ntr-gif`：「NTRは人類の夢だ！」のシーンのGIFを送信します。\n"
+    res += "`:ntr-gif`：「NTRは人類の夢だ！」のシーンか「NTRは人類の敵だ！」のシーンのGIFを送信します。\n"
     res += "`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
     res += "`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
 
