@@ -23,12 +23,12 @@ async def storiuse(message):
         if not c in escape_char:
             res += "゛"
     res += "」"
-    await message.channel.send(file=discord.File('Sutoriusu.jpg'))
+    await message.channel.send(file=discord.File('pictures/Sutoriusu.jpg'))
     await message.channel.send(res)
 
 async def aruto(message):
     res = "飛電或人「" + message.content[5:] + "は人類の夢だ！！」"
-    await message.channel.send(file=discord.File('HidenAruto.jpg'))
+    await message.channel.send(file=discord.File('pictures/HidenAruto.jpg'))
     await message.channel.send(res)
 
 async def ntr(message):
@@ -38,7 +38,7 @@ async def ntr(message):
 
 async def shion(message):
     user_name = message.author.display_name
-    await message.channel.send(file=discord.File('Shion.jpg'))
+    await message.channel.send(file=discord.File('pictures/Shion.jpg'))
     await message.channel.send(f'{user_name}！今、幸せ？')
 
 async def makoto(message):
