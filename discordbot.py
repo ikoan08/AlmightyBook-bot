@@ -32,9 +32,9 @@ async def aruto(message):
     await message.channel.send(res)
 
 async def ntr(message):
-    x = random.randint(1, 2)
-    if x == 1: await message.channel.send(file=discord.File('NTR_pos.gif'))
-    else: await message.channel.send(file=discord.File('NTR_neg.gif'))
+    file_name = f'NTRs/NTR{random.randint(1, 3)}.gif'
+    await message.channel.send(file=discord.File(file_name))
+
 
 async def shion(message):
     user_name = message.author.display_name
