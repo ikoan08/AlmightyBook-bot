@@ -56,6 +56,7 @@ async def demon(message):
     res = "デモンズドライバー「"
     for text in list(t.tokenize(s, wakati=True)):
         res += wanakana.to_katakana(f'{text}    ')
+    res = res[0:-4]
     res += "」"
 
     await message.channel.send(file=discord.File('pictures/DemonsDriver.jpg'))
