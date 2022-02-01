@@ -23,7 +23,7 @@ async def on_ready():
 
 # ------- 以下個別処理を行う関数 ----------
 async def storiuse(message):
-    escape_char = ['.', ',', '!', '?', '|', '。', '、', '…', '・', '？', '！', '「', '」', '『', '』']
+    escape_char = ['.', ',', '!', '?', '|', '。', '、', '…', '・', '？', '！', '「', '」', '『', '』', ' ', '　']
     res = "ストリウス「"
     for c in list(message.content)[6:]:
         res += c
