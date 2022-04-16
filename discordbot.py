@@ -117,7 +117,7 @@ async def on_message(message):
 @client.event
 async def on_voice_state_update(member, before, after):
     if(before.channel == None and after.channel.id == 962018177951350875):
-        channel = client.get_channel(845573797279957006)
+        channel = client.get_channel(962019622075396216)
         res = f'{member.name} さんがリビルドバトルに参加しました'
         await channel.send(res)
         await channel.send(file=discord.File("pictures/makoto_fu_ha.jpg"))
