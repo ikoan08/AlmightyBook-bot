@@ -104,8 +104,13 @@ async def on_message(message):
     if message.content.startswith(':demon_'):
         await demon(message)
 
+    if message.content == ':dice' and message.channel.id == 962019622075396216:
+        res = random.randint(1, 6)
+        await message.channel.send(res)
+
     if message.content == ':help':
         await help(message)
+
 
 
 # ボイスチャンネルのイベント関連処理
