@@ -70,6 +70,7 @@ async def help(message):
     res += "`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
     res += "`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
     res += "`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
+    res += "ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
 
 
@@ -105,6 +106,18 @@ async def on_message(message):
 
     if message.content == ':help':
         await help(message)
+
+
+# ボイスチャンネルのイベント関連処理
+@client.event
+async def on_voice_state_update(member, before, after):
+    if(before.channel == None and after.channel.id == 962018177951350875):
+        channel = client.get_channel(845573797279957006)
+        res = f'{member.name} さんがリビルドバトルに参加しました'
+        await channel.send(res)
+        await channel.send(file=discord.File("pictures/makoto_fu_ha.jpg"))
+        res = f'フッ！ハッ！{member.name}！どうしてリビルドしない！？'
+        await channel.send(res)
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
