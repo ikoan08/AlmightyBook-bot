@@ -1,10 +1,10 @@
 # インストールした discord.py を読み込む
+from tabnanny import check
 import discord
 import wanakana
 from discord import channel
 from janome.tokenizer import Tokenizer
 import random
-
 
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
@@ -14,6 +14,9 @@ client = discord.Client()
 
 # 分かち書きに必要な解析器
 t = Tokenizer()
+
+# ノーザンベースに入れておくメッセージ履歴
+message_content_history = []
 
 # 起動時に動作する処理
 @client.event
@@ -62,6 +65,15 @@ async def demon(message):
     await message.channel.send(file=discord.File('pictures/DemonsDriver.jpg'))
     await message.channel.send(res)
 
+async def check_furinkazan(message):
+    if message_content_history == [
+        "<:like_window:970702189506998302>",
+        "<:like_forest:970702266313101362>",
+        "<:like_fire:970702341185609798>",
+        "<:like_mountain:970702424060870736>"
+    ]:
+        await message.channel.send(file=discord.File('pictures/furinkazan.jpg'))
+
 async def help(message):
     res = "**List of commands:**\n"
     res += "`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
@@ -70,6 +82,7 @@ async def help(message):
     res += "`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
     res += "`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
     res += "`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
+    res += "ノーザンベースで「風」「林」「火」「山」のサーバー絵文字を順番に送信すると風林火山を撃ってくれます。\n"
     res += "ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
 
@@ -107,6 +120,12 @@ async def on_message(message):
     if message.content == ':dice' and message.channel.id == 962019622075396216:
         res = random.randint(1, 6)
         await message.channel.send(res)
+
+    if message.channel.id == 845573797279957006:
+        message_content_history.append(message.content)
+        if len(message_content_history) > 4:
+            message_content_history.pop(0)
+        await check_furinkazan(message)
 
     if message.content == ':help':
         await help(message)
