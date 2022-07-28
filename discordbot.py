@@ -5,6 +5,7 @@ import wanakana
 from discord import channel
 from janome.tokenizer import Tokenizer
 import random
+import datetime
 
 # 自分のBotのアクセストークンに置き換えてください
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
@@ -17,6 +18,8 @@ t = Tokenizer()
 
 # ノーザンベースに入れておくメッセージ履歴
 message_content_history = []
+
+start = datetime.datetime.now()
 
 # 起動時に動作する処理
 @client.event
@@ -73,6 +76,8 @@ async def check_furinkazan(message):
         "<:like_mountain:970702424060870736>"
     ]:
         await message.channel.send(file=discord.File('pictures/furinkazan.jpg'))
+        complete_time = datetime.datetime.now() - start
+        await message.channel.send(f'タイム {complete_time.seconds} 秒')
 
 async def help(message):
     res = "**List of commands:**\n"
@@ -85,7 +90,6 @@ async def help(message):
     res += "ノーザンベースで「風」「林」「火」「山」のサーバー絵文字を順番に送信すると風林火山を撃ってくれます。\n"
     res += "ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
-
 
 # メッセージ受信時に動作する処理
 @client.event
@@ -122,6 +126,9 @@ async def on_message(message):
         await message.channel.send(res)
 
     if message.channel.id == 845573797279957006:
+        if message.content == "<:like_window:970702189506998302>":
+            global start
+            start = datetime.datetime.now()
         message_content_history.append(message.content)
         if len(message_content_history) > 4:
             message_content_history.pop(0)
