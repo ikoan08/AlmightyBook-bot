@@ -69,6 +69,7 @@ async def demon(message):
     await message.channel.send(res)
 
 async def check_furinkazan(message):
+    complete_time = datetime.datetime.now() - start
     if message_content_history == [
         "<:like_window:970702189506998302>",
         "<:like_forest:970702266313101362>",
@@ -76,7 +77,6 @@ async def check_furinkazan(message):
         "<:like_mountain:970702424060870736>"
     ]:
         await message.channel.send(file=discord.File('pictures/furinkazan.jpg'))
-        complete_time = datetime.datetime.now() - start
         await message.channel.send(f'タイム {complete_time.seconds} 秒')
 
 async def help(message):
