@@ -1,25 +1,21 @@
 # インストールした discord.py を読み込む
-from tabnanny import check
 import discord
-import wanakana
 from discord import channel
-from janome.tokenizer import Tokenizer
-import random
-import datetime
 
-# 自分のBotのアクセストークンに置き換えてください
+# 分割したモジュール
+from modules import sutoriuse
+from modules import aruto
+from modules import ntr
+from modules import shion
+from modules import makoto
+from modules import demon
+from modules import furinkazan
+
+# アクセストークン
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
-
-# 分かち書きに必要な解析器
-t = Tokenizer()
-
-# ノーザンベースに入れておくメッセージ履歴
-message_content_history = []
-
-start = datetime.datetime.now()
 
 # 起動時に動作する処理
 @client.event
@@ -27,68 +23,17 @@ async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
 
-# ------- 以下個別処理を行う関数 ----------
-async def storiuse(message):
-    escape_char = ['.', ',', '!', '?', '|', '。', '、', '…', '・', '？', '！', '「', '」', '『', '』', ' ', '　']
-    res = "ストリウス「"
-    for c in list(message.content)[6:]:
-        res += c
-        if not c in escape_char:
-            res += "゛"
-    res += "」"
-    await message.channel.send(file=discord.File('pictures/Sutoriusu.jpg'))
-    await message.channel.send(res)
-
-async def aruto(message):
-    res = "飛電或人「" + message.content[5:] + "は人類の夢だ！！」"
-    await message.channel.send(file=discord.File('pictures/HidenAruto.jpg'))
-    await message.channel.send(res)
-
-async def ntr(message):
-    file_name = f'NTRs/NTR{random.randint(1, 3)}.gif'
-    await message.channel.send(file=discord.File(file_name))
-
-async def shion(message):
-    user_name = message.author.display_name
-    await message.channel.send(file=discord.File('pictures/Shion.jpg'))
-    await message.channel.send(f'{user_name}！今、幸せ？')
-
-async def makoto(message):
-    file_name = f'makotoes/makoto{random.randint(1, 11)}.gif'
-    await message.channel.send(file=discord.File(file_name))
-
-async def demon(message):
-    s = message.content[7:]
-    res = "デモンズドライバー「"
-    for text in list(t.tokenize(s, wakati=True)):
-        res += wanakana.to_katakana(f'{text}    ')
-    res = res[0:-4]
-    res += "」"
-
-    await message.channel.send(file=discord.File('pictures/DemonsDriver.jpg'))
-    await message.channel.send(res)
-
-async def check_furinkazan(message):
-    complete_time = datetime.datetime.now() - start
-    if message_content_history == [
-        "<:like_window:970702189506998302>",
-        "<:like_forest:970702266313101362>",
-        "<:like_fire:970702341185609798>",
-        "<:like_mountain:970702424060870736>"
-    ]:
-        await message.channel.send(file=discord.File('pictures/furinkazan.jpg'))
-        await message.channel.send(f'タイム {complete_time.seconds} 秒')
 
 async def help(message):
     res = "**List of commands:**\n"
-    res += "`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
-    res += "`:drm_***`：飛電或人が激推ししてくれます。\n"
-    res += "`:ntr-gif`：「NTRは人類の夢だ！」のシーンか「NTRは人類の敵だ！」のシーンのGIFを送信します。\n"
-    res += "`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
-    res += "`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
-    res += "`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
-    res += "ノーザンベースで「風」「林」「火」「山」のサーバー絵文字を順番に送信すると風林火山を撃ってくれます。\n"
-    res += "ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
+    res += "・`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
+    res += "・`:drm_***`：飛電或人が激推ししてくれます。\n"
+    res += "・`:ntr-gif`：「NTRは人類の夢だ！」のシーンか「NTRは人類の敵だ！」のシーンのGIFを送信します。\n"
+    res += "・`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
+    res += "・`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
+    res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
+    res += "・ノーザンベースで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
+    res += "・ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
 
 # メッセージ受信時に動作する処理
@@ -98,41 +43,30 @@ async def on_message(message):
     if message.author.bot:
         return
 
-    # ストリウスが濁点をつける処理
     if message.content.startswith(':dktn_'):
-            await storiuse(message)
+        await sutoriuse.func(message)
 
     if message.content.startswith(':drm_'):
-        await aruto(message)
+        await aruto.func(message)
 
-    # NTRは人類の夢だ！のGIFを送信する処理
     if message.content == ':ntr-gif':
-        await ntr(message)
+        await ntr.func(message)
 
-    # シオンが幸せかどうか聞いてくれる処理
     if message.content == ':shion':
-        await shion(message)
+        await shion.func(message)
 
-    # マコト兄ちゃんが乱入してくる処理
     if message.content == ':makoto':
-        await makoto(message)
+        await makoto.func(message)
 
-    # デモンズドライバーが喋ってくれる処理
     if message.content.startswith(':demon_'):
-        await demon(message)
+        await demon.func(message)
+
+    if message.channel.id == 845573797279957006:
+        await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
         res = random.randint(1, 6)
         await message.channel.send(res)
-
-    if message.channel.id == 845573797279957006:
-        if message.content == "<:like_window:970702189506998302>":
-            global start
-            start = datetime.datetime.now()
-        message_content_history.append(message.content)
-        if len(message_content_history) > 4:
-            message_content_history.pop(0)
-        await check_furinkazan(message)
 
     if message.content == ':help':
         await help(message)
