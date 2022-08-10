@@ -11,6 +11,7 @@ from modules import makoto
 from modules import demon
 from modules import furinkazan
 from modules import heart
+from modules import builddivide
 
 # アクセストークン
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
@@ -70,8 +71,7 @@ async def on_message(message):
         await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
-        res = random.randint(1, 6)
-        await message.channel.send(res)
+        await builddivide.func(message)
 
     if message.content == ':help':
         await help(message)
