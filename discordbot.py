@@ -10,6 +10,7 @@ from modules import shion
 from modules import makoto
 from modules import demon
 from modules import furinkazan
+from modules import heart
 
 # アクセストークン
 TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
@@ -33,6 +34,7 @@ async def help(message):
     res += "・`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
     res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
     res += "・ノーザンベースで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
+    res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（10連まで）。\n"
     res += "・ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
 
@@ -60,6 +62,9 @@ async def on_message(message):
 
     if message.content.startswith(':demon_'):
         await demon.func(message)
+
+    if message.content.startswith(':heart_'):
+        await heart.func(message)
 
     if message.channel.id == 845573797279957006:
         await furinkazan.func(message)
