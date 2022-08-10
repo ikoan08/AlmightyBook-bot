@@ -10,7 +10,7 @@ async def func(message):
     global is_accept
     if str.isdecimal(message.content[7:]):
         num = int(message.content[7:])
-        if num < 0 or num > 5:
+        if num < 0 or num > 3:
             await message.channel.send("不正な数です")
             return
 
