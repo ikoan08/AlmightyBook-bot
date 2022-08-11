@@ -71,7 +71,7 @@ async def on_message(message):
         await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
-        await builddivide.func(message)
+        await builddivide.dice(message)
 
     if message.content == ':help':
         await help(message)
@@ -82,12 +82,7 @@ async def on_message(message):
 @client.event
 async def on_voice_state_update(member, before, after):
     if(before.channel == None and after.channel.id == 962018177951350875):
-        channel = client.get_channel(962019622075396216)
-        res = f'{member.name} さんがリビルドバトルに参加しました'
-        await channel.send(res)
-        await channel.send(file=discord.File("pictures/makoto_fu_ha.jpg"))
-        res = f'フッ！ハッ！{member.name}！どうしてリビルドしない！？'
-        await channel.send(res)
+        builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
 client.run(TOKEN)
