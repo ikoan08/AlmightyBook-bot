@@ -34,7 +34,7 @@ async def help(message):
     res += "・`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
     res += "・`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
     res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
-    res += "・ノーザンベースで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
+    res += "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
     res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（3連まで）。\n"
     res += "・ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
     await message.channel.send(res)
@@ -67,7 +67,7 @@ async def on_message(message):
     if message.content.startswith(':heart_'):
         await heart.func(message)
 
-    if message.channel.id == 845573797279957006:
+    if message.channel.id == 1006761298077417533:
         await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
