@@ -15,7 +15,7 @@ async def func(message):
             return
 
         is_accept = False
-        for i in random.sample(range(1, 19), k=num):
+        for i in random.sample(range(1, 28), k=num):
                 file_name = f'hearts/heart{i}.jpg'
                 await message.channel.send(file=discord.File(file_name))
         is_accept = True
