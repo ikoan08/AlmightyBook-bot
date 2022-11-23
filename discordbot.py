@@ -1,6 +1,7 @@
 # インストールした discord.py を読み込む
 import discord
 from discord import channel
+import os
 
 # 分割したモジュール
 from modules import sutoriuse
@@ -12,9 +13,6 @@ from modules import demon
 from modules import furinkazan
 from modules import heart
 from modules import builddivide
-
-# アクセストークン
-TOKEN = 'ODg4NzcwMjAwOTY1NjIzODk4.YUXhwA.fej9-qgAEj9tGfTL_vQnYM5jxgg'
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -85,4 +83,4 @@ async def on_voice_state_update(member, before, after):
         builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
-client.run(TOKEN)
+client.run(os.environ.get("DISCORD_TOKEN"))
