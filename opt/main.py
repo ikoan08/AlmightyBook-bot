@@ -1,7 +1,9 @@
+from dotenv import load_dotenv
+import os
+
 # インストールした discord.py を読み込む
 import discord
 from discord import channel
-import os
 
 # 分割したモジュール
 from modules import sutoriuse
@@ -16,13 +18,13 @@ from modules import builddivide
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
+load_dotenv()
 
 # 起動時に動作する処理
 @client.event
 async def on_ready():
     # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
-
 
 async def help(message):
     res = "**List of commands:**\n"
