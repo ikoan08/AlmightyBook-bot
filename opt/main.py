@@ -15,6 +15,7 @@ from modules import demon
 from modules import furinkazan
 from modules import heart
 from modules import builddivide
+from modules import kingkazu
 
 # 接続に必要なオブジェクトを生成
 client = discord.Client()
@@ -33,6 +34,7 @@ async def help(message):
     res += "・`:ntr-gif`：「NTRは人類の夢だ！」のシーンか「NTRは人類の敵だ！」のシーンのGIFを送信します。\n"
     res += "・`:shion`：シオンが今幸せかどうかを聞いてくれます。\n"
     res += "・`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
+    res += "・`:kingkazu`：キングカズが激励してくれます。\n"
     res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
     res += "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
     res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（3連まで）。\n"
@@ -60,6 +62,9 @@ async def on_message(message):
 
     if message.content == ':makoto':
         await makoto.func(message)
+
+    if message.content == ':kingkazu':
+        await kingkazu.func(message)
 
     if message.content.startswith(':demon_'):
         await demon.func(message)
