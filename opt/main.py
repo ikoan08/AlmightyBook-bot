@@ -18,7 +18,10 @@ from modules import builddivide
 from modules import kingkazu
 
 # 接続に必要なオブジェクトを生成
-client = discord.Client()
+
+intents = discord.Intents.all()
+client = discord.Client(intents=intents)
+
 load_dotenv()
 
 # 起動時に動作する処理
@@ -72,7 +75,7 @@ async def on_message(message):
     if message.content.startswith(':heart_'):
         await heart.func(message)
 
-    if message.channel.id == 1006761298077417533:
+    if message.channel.id == 1006761298077417533 or message.channel.id == 875755647063449710:
         await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
