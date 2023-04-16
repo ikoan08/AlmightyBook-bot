@@ -19,8 +19,8 @@ from modules import kingkazu
 
 # 接続に必要なオブジェクトを生成
 
-intents = discord.Intents.all()
-client = discord.Client(intents=intents)
+Intents = discord.Intents.all()
+client = discord.Client(intents=Intents)
 
 load_dotenv()
 
