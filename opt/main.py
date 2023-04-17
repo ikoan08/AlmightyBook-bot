@@ -16,7 +16,7 @@ from modules import furinkazan
 from modules import heart
 from modules import builddivide
 from modules import kingkazu
-
+from modules import goroge
 # 接続に必要なオブジェクトを生成
 
 Intents = discord.Intents.all()
@@ -41,7 +41,9 @@ async def help(message):
     res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
     res += "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
     res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（3連まで）。\n"
+    res += "・`:goroge_***`：ゴローゲが糾弾します。\n"
     res += "・ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
+
     await message.channel.send(res)
 
 # メッセージ受信時に動作する処理
@@ -81,6 +83,9 @@ async def on_message(message):
     if message.content == ':dice' and message.channel.id == 962019622075396216:
         await builddivide.dice(message)
 
+    if message.content.startswith(':goroge_'):
+        await goroge.func(message) 
+
     if message.content == ':help':
         await help(message)
 
@@ -93,4 +98,4 @@ async def on_voice_state_update(member, before, after):
         builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
-client.run(os.environ.get("DISCORD_TOKEN"))
+client.run(os.environ.get("DISCORD_TOKEN_TEST"))
