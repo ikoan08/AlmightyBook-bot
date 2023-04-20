@@ -17,6 +17,7 @@ from modules import heart
 from modules import builddivide
 from modules import kingkazu
 from modules import goroge
+from modules import daichi
 # 接続に必要なオブジェクトを生成
 
 Intents = discord.Intents.all()
@@ -84,7 +85,10 @@ async def on_message(message):
         await builddivide.dice(message)
 
     if message.content.startswith(':goroge_'):
-        await goroge.func(message) 
+        await goroge.func(message)
+
+    if message.channel.id == 845573797279957006:
+        await daichi.func(message)
 
     if message.content == ':help':
         await help(message)
