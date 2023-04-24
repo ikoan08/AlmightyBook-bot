@@ -1,6 +1,8 @@
 from dotenv import load_dotenv
 import os
 
+load_dotenv()
+
 # インストールした discord.py を読み込む
 import discord
 from discord import channel
@@ -18,18 +20,23 @@ from modules import builddivide
 from modules import kingkazu
 from modules import goroge
 from modules import daichi
-# 接続に必要なオブジェクトを生成
 
+# 接続に必要なオブジェクトを生成
 Intents = discord.Intents.all()
 client = discord.Client(intents=Intents)
+guild = None
 
-load_dotenv()
+SERVER_ID = 845573797279957003
+NOZAN_BASE_ID = 845573797279957006
+FURINKAZAN_ID = 1006761298077417533
+BOT_DEV_ID = 875755647063449710
 
 # 起動時に動作する処理
 @client.event
 async def on_ready():
-    # 起動したらターミナルにログイン通知が表示される
     print('ログインしました')
+    global guild
+    guild = client.get_guild(SERVER_ID)
 
 async def help(message):
     res = "**List of commands:**\n"
@@ -78,7 +85,7 @@ async def on_message(message):
     if message.content.startswith(':heart_'):
         await heart.func(message)
 
-    if message.channel.id == 1006761298077417533 or message.channel.id == 875755647063449710:
+    if message.channel.id == FURINKAZAN_ID or message.channel.id == BOT_DEV_ID:
         await furinkazan.func(message)
 
     if message.content == ':dice' and message.channel.id == 962019622075396216:
@@ -87,8 +94,8 @@ async def on_message(message):
     if message.content.startswith(':goroge_'):
         await goroge.func(message)
 
-    if message.channel.id == 845573797279957006:
-        await daichi.func(message)
+    if message.channel.id == NOZAN_BASE_ID or message.channel.id == BOT_DEV_ID:
+        await daichi.func(message, guild)
 
     if message.content == ':help':
         await help(message)
