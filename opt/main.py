@@ -36,7 +36,7 @@ BOT_DEV_ID = 875755647063449710
 # 起動時に動作する処理
 @client.event
 async def on_ready():
-    print('ログインしました')
+    print(f'{client.user} ログインしました')
     global guild
     guild = client.get_guild(SERVER_ID)
 
@@ -111,4 +111,4 @@ async def on_voice_state_update(member, before, after):
         builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
-client.run(os.environ.get("DISCORD_TOKEN_TEST"))
+client.run(os.environ.get("DISCORD_TOKEN"))
