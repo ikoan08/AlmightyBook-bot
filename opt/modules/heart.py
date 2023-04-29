@@ -20,4 +20,4 @@ async def func(message):
                 await message.channel.send(file=discord.File(file_name))
         is_accept = True
     else:
-        await message.channel.send(file=discord.File("hearts/not_heart.jpg"))
+        await message.channel.send(file=discord.File("pictures/hearts/not_heart.jpg"))

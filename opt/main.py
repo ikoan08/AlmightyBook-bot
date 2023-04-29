@@ -22,8 +22,10 @@ from modules import goroge
 from modules import daichi
 
 # 接続に必要なオブジェクトを生成
-Intents = discord.Intents.all()
-client = discord.Client(intents=Intents)
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+client = discord.Client(intents=intents)
 guild = None
 
 SERVER_ID = 845573797279957003
@@ -34,7 +36,7 @@ BOT_DEV_ID = 875755647063449710
 # 起動時に動作する処理
 @client.event
 async def on_ready():
-    print('ログインしました')
+    print(f'{client.user} ログインしました')
     global guild
     guild = client.get_guild(SERVER_ID)
 
@@ -56,7 +58,7 @@ async def help(message):
 
 # メッセージ受信時に動作する処理
 @client.event
-async def on_message(message):
+async def on_message(message: discord.Message):
     # メッセージ送信者がBotだった場合は無視する
     if message.author.bot:
         return
@@ -109,4 +111,4 @@ async def on_voice_state_update(member, before, after):
         builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
-client.run(os.environ.get("DISCORD_TOKEN_TEST"))
+client.run(os.environ.get("DISCORD_TOKEN"))
