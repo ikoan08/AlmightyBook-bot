@@ -99,7 +99,7 @@ async def on_message(message: discord.Message):
     if message.channel.id == NOZAN_BASE_ID or message.channel.id == BOT_DEV_ID:
         await daichi.func(message, guild)
 
-    if message.content == ':help':
+    if message.content == ':help_bot':
         await help(message)
 
 
