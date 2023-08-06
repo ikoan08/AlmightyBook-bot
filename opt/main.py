@@ -21,6 +21,7 @@ from modules import kingkazu
 from modules import goroge
 from modules import daichi
 from modules import keiwa
+from modules import soyo
 
 # 接続に必要なオブジェクトを生成
 intents = discord.Intents.default()
@@ -53,7 +54,8 @@ async def help(message):
     res += "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
     res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（3連まで）。\n"
     res += "・`:goroge_***`：ゴローゲが糾弾します。\n"
-    res += "・`:keiwa_***`：景和が償わせます。50％の確率で創世の女神に償わせます。"
+    res += "・`:keiwa_***`：景和が償わせます。50％の確率で創世の女神に償わせます。\n"
+    res += "・`:soyo_***：そよ彦が問い詰めます。\n"
     res += "・ビルディバイドのボイスチャンネルに誰かが参加するとリビルドバトルの開始を教えてくれます。\n"
 
     await message.channel.send(res)
@@ -100,6 +102,9 @@ async def on_message(message: discord.Message):
 
     if message.content.startswith(':keiwa_'):
         await keiwa.func(message)
+
+    if message.content.startswith(':soyo_'):
+        await soyo.func(message)
 
 
     if message.channel.id == NOZAN_BASE_ID or message.channel.id == BOT_DEV_ID:
