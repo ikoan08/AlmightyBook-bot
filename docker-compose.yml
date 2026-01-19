@@ -1,9 +1,21 @@
-version: '3'
 services:
-  python3:
-    build: .
-    container_name: 'discord-bot'
-    working_dir: '/root/'
-    tty: true
-    volumes:
-      - ./opt:/root/opt
+  discord-bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: almightybook-bot:latest
+    container_name: discord-bot
+    restart: unless-stopped
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+        reservations:
+          memory: 128M
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"

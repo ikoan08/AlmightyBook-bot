@@ -126,4 +126,4 @@ async def on_voice_state_update(member, before, after):
         builddivide.entry()
 
 # Botの起動とDiscordサーバーへの接続
-client.run(os.environ.get("DISCORD_TOKEN_TEST"))
+client.run(os.environ.get("DISCORD_TOKEN"))
