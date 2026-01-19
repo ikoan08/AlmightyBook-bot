@@ -1,6 +1,8 @@
-import discord
 import random
 
+import discord
+
+
 async def func(message):
-    file_name = f'gifs/NTRs/NTR{random.randint(1, 3)}.gif'
+    file_name = f"gifs/NTRs/NTR{random.randint(1, 3)}.gif"
     await message.channel.send(file=discord.File(file_name))

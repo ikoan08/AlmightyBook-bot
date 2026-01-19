@@ -1,9 +1,9 @@
-import discord
 import random
-import re
 
+import discord
 
 is_accept = True
+
 
 # 画像を追加する場合はGIMPで縦を150にそろえる
 async def func(message):
@@ -16,8 +16,8 @@ async def func(message):
 
         is_accept = False
         for i in random.sample(range(1, 28), k=num):
-                file_name = f'pictures/hearts/heart{i}.jpg'
-                await message.channel.send(file=discord.File(file_name))
+            file_name = f"pictures/hearts/heart{i}.jpg"
+            await message.channel.send(file=discord.File(file_name))
         is_accept = True
     else:
         await message.channel.send(file=discord.File("pictures/hearts/not_heart.jpg"))

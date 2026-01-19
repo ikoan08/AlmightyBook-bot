@@ -18,20 +18,26 @@ DISCORD_TOKEN=***
 ```
 と書き込んで保存
 
-作業ディレクトリに飛んで
+## Usage
+
+### 起動
 ```bash
 docker-compose up -d --build
 ```
-でイメージビルドとコンテナ立ち上げが出来る。
 
+### ログ確認
 ```bash
-docker exec -it python3 bash
+docker logs discord-bot
 ```
-でコンテナに入れるのでアプリ起動やライブラリの試験導入で使う
 
-コンテは停止はデスクトップアプリで操作するか
+### 停止
 ```bash
 docker-compose down
+```
+
+### コンテナに入る（デバッグ用）
+```bash
+docker exec -it discord-bot bash
 ```
 ## Note
  

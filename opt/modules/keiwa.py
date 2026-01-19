@@ -1,5 +1,7 @@
-import discord
 import random
+
+import discord
+
 
 async def func(message):
     msg = message.content[7:]
@@ -9,5 +11,5 @@ async def func(message):
     else:
         res = "創世の女神に償わせる!!!!!!!!!!!!!!!!!!!!!!"
 
-    await message.channel.send(file=discord.File('pictures/keiwa.jpg'))
+    await message.channel.send(file=discord.File("pictures/keiwa.jpg"))
     await message.channel.send(res)

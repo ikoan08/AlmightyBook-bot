@@ -1,28 +1,26 @@
-from dotenv import load_dotenv
 import os
 
-load_dotenv()
-
-# インストールした discord.py を読み込む
 import discord
-from discord import channel
+from dotenv import load_dotenv
+from modules import (
+    aruto,
+    builddivide,
+    daichi,
+    demon,
+    furinkazan,
+    goroge,
+    happiness,
+    heart,
+    keiwa,
+    kingkazu,
+    makoto,
+    ntr,
+    shion,
+    soyo,
+    sutoriuse,
+)
 
-# 分割したモジュール
-from modules import sutoriuse
-from modules import aruto
-from modules import ntr
-from modules import shion
-from modules import makoto
-from modules import demon
-from modules import furinkazan
-from modules import heart
-from modules import builddivide
-from modules import kingkazu
-from modules import goroge
-from modules import daichi
-from modules import keiwa
-from modules import soyo
-from modules import happiness
+load_dotenv()
 
 # 接続に必要なオブジェクトを生成
 intents = discord.Intents.default()
@@ -36,14 +34,16 @@ NOZAN_BASE_ID = 845573797279957006
 FURINKAZAN_ID = 1006761298077417533
 BOT_DEV_ID = 875755647063449710
 
+
 # 起動時に動作する処理
 @client.event
 async def on_ready():
-    print(f'{client.user} ログインしました')
+    print(f"{client.user} ログインしました")
     global guild
     guild = client.get_guild(SERVER_ID)
 
-async def help(message):
+
+async def show_help(message):
     res = "**List of commands:**\n"
     res += "・`:dktn_***`：ストリウスが濁点を付けて返してくれます。\n"
     res += "・`:drm_***`：飛電或人が激推ししてくれます。\n"
@@ -52,7 +52,9 @@ async def help(message):
     res += "・`:makoto`：マコト兄ちゃんが乱入してきます。（複数種類あります）\n"
     res += "・`:kingkazu`：キングカズが激励してくれます。\n"
     res += "・`:demon_***`：デモンズドライバーが悪魔の喋り方で返してくれます。\n"
-    res += "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
+    res += (
+        "・風林火山チャンネルで`「風」「林」「火」「山」のサーバー絵文字`を順番に送信すると風林火山を撃ってくれます。\n"
+    )
     res += "・`:heart_[任意の数]`：心臓キャプのガチャを実行します（3連まで）。\n"
     res += "・`:goroge_***`：ゴローゲが糾弾します。\n"
     res += "・`:keiwa_***`：景和が償わせます。50％の確率で創世の女神に償わせます。\n"
@@ -62,6 +64,7 @@ async def help(message):
 
     await message.channel.send(res)
 
+
 # メッセージ受信時に動作する処理
 @client.event
 async def on_message(message: discord.Message):
@@ -69,61 +72,61 @@ async def on_message(message: discord.Message):
     if message.author.bot:
         return
 
-    if message.content.startswith(':dktn_'):
+    if message.content.startswith(":dktn_"):
         await sutoriuse.func(message)
 
-    if message.content.startswith(':drm_'):
+    if message.content.startswith(":drm_"):
         await aruto.func(message)
 
-    if message.content == ':ntr-gif':
+    if message.content == ":ntr-gif":
         await ntr.func(message)
 
-    if message.content == ':shion':
+    if message.content == ":shion":
         await shion.func(message)
 
-    if message.content == ':makoto':
+    if message.content == ":makoto":
         await makoto.func(message)
 
-    if message.content == ':kingkazu':
+    if message.content == ":kingkazu":
         await kingkazu.func(message)
 
-    if message.content.startswith(':demon_'):
+    if message.content.startswith(":demon_"):
         await demon.func(message)
 
-    if message.content.startswith(':heart_'):
+    if message.content.startswith(":heart_"):
         await heart.func(message)
 
-    if message.channel.id == FURINKAZAN_ID or message.channel.id == BOT_DEV_ID:
+    if message.channel.id in (FURINKAZAN_ID, BOT_DEV_ID):
         await furinkazan.func(message)
 
-    if message.content == ':dice' and message.channel.id == 962019622075396216:
+    if message.content == ":dice" and message.channel.id == 962019622075396216:
         await builddivide.dice(message)
 
-    if message.content.startswith(':goroge_'):
+    if message.content.startswith(":goroge_"):
         await goroge.func(message)
 
-    if message.content.startswith(':keiwa_'):
+    if message.content.startswith(":keiwa_"):
         await keiwa.func(message)
 
-    if message.content.startswith(':soyo_'):
+    if message.content.startswith(":soyo_"):
         await soyo.func(message)
 
-    if message.content == ':happiness':
+    if message.content == ":happiness":
         await happiness.func(message)
 
-    if message.channel.id == NOZAN_BASE_ID or message.channel.id == BOT_DEV_ID:
+    if message.channel.id in (NOZAN_BASE_ID, BOT_DEV_ID):
         await daichi.func(message, guild)
 
-    if message.content == ':help_bot':
-        await help(message)
-
+    if message.content == ":help_bot":
+        await show_help(message)
 
 
 # ボイスチャンネルのイベント関連処理
 @client.event
 async def on_voice_state_update(member, before, after):
-    if(before.channel == None and after.channel.id == 962018177951350875):
-        builddivide.entry()
+    if before.channel is None and after.channel.id == 962018177951350875:
+        await builddivide.entry(client, member)
+
 
 # Botの起動とDiscordサーバーへの接続
 client.run(os.environ.get("DISCORD_TOKEN"))

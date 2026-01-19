@@ -8,12 +8,6 @@ services:
     restart: unless-stopped
     env_file:
       - .env
-    deploy:
-      resources:
-        limits:
-          memory: 256M
-        reservations:
-          memory: 128M
     logging:
       driver: json-file
       options:
